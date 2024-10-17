@@ -1,0 +1,93 @@
+org: ${env:SERVERLESS_ORG}
+app: chatbot-api
+service: chatbot-api
+
+provider:
+  name: aws
+  runtime: python3.9
+  environment:
+    LEX_BOT_ID: ${env:LEX_BOT_ID}
+    LEX_BOT_ALIAS_ID: ${env:LEX_BOT_ALIAS_ID}
+    TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN}
+    AUDIO_BUCKET_NAME: ${env:AUDIO_BUCKET_NAME}
+    AUDIO_TABLE_NAME: ${env:AUDIO_TABLE_NAME}
+    S3_BUCKET: ${env:S3_BUCKET}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:ListTables
+        - dynamodb:CreateTable
+        - dynamodb:DescribeTable
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+        - s3:ListBucket
+        - s3:ListObject
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - rekognition:DetectLabels
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - polly:SynthesizeSpeech
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - lex:PostText
+        - lex:RecognizeText
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - bedrock:InvokeModel
+      Resource: arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-text-express-v1
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: "*"
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    usePoetry: false
+    dockerizePip: false
+
+functions:
+  telegramToLex:
+    handler: handler.telegramToLex_handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /telegram-webhook
+          method: post
+
+  textToSpeech:
+    handler: handler.textToSpeech_handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /tts
+          method: post
+
+  generateTips:
+    handler: handler.generateTips_handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /tips
+          method: post
+
+  analyzeImage:
+    handler: handler.analyzeImage_handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /analyze-image
+          method: post

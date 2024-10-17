@@ -1,0 +1,48 @@
+<!-- Autor: Gustavo Cortez de Paula -->
+<!-- Avaliação Sprint 1 - Compass UOL / AWS -->
+<!-- Sistema em JavaScript/HTML para verificação de PIN -->
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Informe seu Personal Identification Number(PIN)</title>
+  </head>
+  <body onload="carregar()">
+    <main>
+      <div id="PaginaInicial">
+        <h2>Informe seu Personal Identification Number(PIN)<br /></h2>
+      </div>
+
+      <div id="areaDeTentativa">
+        <section>
+          <h3>Insira seu PIN de minímo 4 e máximo 6 dígitos</h3>
+          <h4 id="textOutput"></h4>
+          <input type="NumeroPin" id="inputBox" min="1000" max="999999" onchange="compararNumeros()"/>
+        </section>
+        <section class="stats">
+          <div class="info">
+            <p>Quantidade de tentativas:</p>
+            <span id="tentativas"></span>
+          </div>
+          <div class="info">
+            <p>Suas tentativas anteriores:</p>
+            <span id="tentativaAnterior"></span>
+          </div>
+        </section>
+        <button id="reiniciarPag" onclick="reiniciar()">Tentar novamente com outro PIN</button>
+      </div>
+    </main>
+    <script src="src/index.js"></script>
+  </body>
+
+  <footer class="footer">
+    <div class="textorodape">© Gustavo Cortez de Paula:
+      <a class="issomemo" href="https://github.com/Compass-pb-aws-2024-MARCO/sprint-1-pb-aws-marco/tree/gustavo-cortez">Avaliação Sprint 1 - Compass UOL / AWS</a>
+    </div>
+  
+  </footer>
+
+</html>

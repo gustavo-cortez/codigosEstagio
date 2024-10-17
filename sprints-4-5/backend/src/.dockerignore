@@ -1,0 +1,39 @@
+# Arquivos e diretórios do Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+dist/
+build/
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Arquivos e diretórios do ambiente virtual
+env/
+venv/
+ENV/
+
+# Arquivos e diretórios do Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+.docker/
+
+# Arquivos e diretórios do Node.js
+node_modules/
+npm-debug.log
+
+# Arquivos e diretórios do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos e diretórios de IDEs e editores de texto
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*.orig
